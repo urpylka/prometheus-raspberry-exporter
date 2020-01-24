@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 set -eu
 
 VCGEN=${VCGEN_PATH:-/opt/vc/bin/vcgencmd}
-TEXTFILE=${PROM_FILE_PATH:-var/lib/node_exporter/textfile_collector/raspberry-metrics.prom}
+TEXTFILE=${PROM_FILE_PATH:-/var/lib/node_exporter/textfile_collector/raspberry-metrics.prom}
 TEMPFILE=$TEXTFILE.$$
 
 mkdir -p $(dirname $TEXTFILE)
@@ -23,16 +23,18 @@ do
 	fi
 done
 
-for id in arm core h264 isp v3d uart pwm emmc pixel vec hdmi dpi; do
-	echo "rpi_freq{device=\"$id\"} $($VCGEN measure_clock $id | cut -d '=' -f 2)" >> $TEMPFILE
-done
+if [[ -f $VCGEN ]]; then
+	for id in arm core h264 isp v3d uart pwm emmc pixel vec hdmi dpi; do
+		echo "rpi_freq{device=\"$id\"} $($VCGEN measure_clock $id | cut -d '=' -f 2)" >> $TEMPFILE
+	done
 
-for id in core sdram_c sdram_i sdram_p; do
-	echo "rpi_volt{device=\"$id\"} $($VCGEN measure_volts $id | cut -d '=' -f 2 | sed 's/V$//')" >> $TEMPFILE
-done
+	for id in core sdram_c sdram_i sdram_p; do
+		echo "rpi_volt{device=\"$id\"} $($VCGEN measure_volts $id | cut -d '=' -f 2 | sed 's/V$//')" >> $TEMPFILE
+	done
 
-for id in arm gpu; do
-	echo "rpi_mem{device=\"$id\"} $($VCGEN get_mem $id | cut -d '=' -f 2 | sed 's/M$//')" >> $TEMPFILE
-done
-chown prometheus:prometheus $TEMPFILE
+	for id in arm gpu; do
+		echo "rpi_mem{device=\"$id\"} $($VCGEN get_mem $id | cut -d '=' -f 2 | sed 's/M$//')" >> $TEMPFILE
+	done
+fi
+#chown prometheus:prometheus $TEMPFILE
 mv $TEMPFILE $TEXTFILE
