@@ -23,7 +23,7 @@ do
 	fi
 done
 
-if [[ -f $VCGEN ]]; then
+if [ -f "$VCGEN" ]; then
 	for id in arm core h264 isp v3d uart pwm emmc pixel vec hdmi dpi; do
 		echo "rpi_freq{device=\"$id\"} $($VCGEN measure_clock $id | cut -d '=' -f 2)" >> $TEMPFILE
 	done
