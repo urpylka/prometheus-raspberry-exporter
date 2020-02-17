@@ -44,5 +44,5 @@ while true; do
 	fi
 	#chown prometheus:prometheus $TEMPFILE
 	mv $TEMPFILE $TEXTFILE
-	slee $SLEEP_DURATION
+	sleep $SLEEP_DURATION
 done
