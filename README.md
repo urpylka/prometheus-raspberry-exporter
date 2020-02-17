@@ -12,8 +12,8 @@ It can also be used with other ARM SOCs to simply export the *CPU* temperature.
 ## Install
 
 - copy `raspberry_exporter` to `/usr/local/bin`.
-- copy the systemd unit files to `/etc/systemd/system`
-- enable and start `prometheus-raspberry-exporter.timer`
+- copy `prometheus-raspberry-exporter.service` to `/etc/systemd/system`
+- enable and start `prometheus-raspberry-exporter`
 
 For example you can deploy using git:
 
@@ -21,10 +21,10 @@ For example you can deploy using git:
 cd /opt
 sudo git clone https://github.com/prontog/prometheus-raspberry-exporter
 cd prometheus-raspberry-exporter
-sudo ln -s /opt/prometheus-raspberry-exporter/prometheus-raspberry-exporter* /etc/systemd/system
+sudo ln -s /opt/prometheus-raspberry-exporter/prometheus-raspberry-exporter.service /etc/systemd/system
 sudo ln -s /opt/prometheus-raspberry-exporter/raspberry_exporter /usr/local/bin
-sudo systemctl enable prometheus-raspberry-exporter.timer
-sudo systemctl start prometheus-raspberry-exporter.timer
+sudo systemctl enable prometheus-raspberry-exporter
+sudo systemctl start prometheus-raspberry-exporter
 ```
 
 ## Configure your node exporter

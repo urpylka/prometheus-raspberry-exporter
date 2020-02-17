@@ -2,6 +2,5 @@
 Description=Collect Raspberry Pi metrics for Prometheus
 
 [Service]
-Type=oneshot
-Environment=PROM_FILE_PATH=/var/lib/node_exporter/raspberry_exporter.prom
+Environment=PROM_FILE_PATH=/var/lib/node_exporter/raspberry_exporter.prom SLEEP_DURATION=15
 ExecStart=/usr/local/bin/raspberry_exporter
