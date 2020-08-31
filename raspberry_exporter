@@ -7,6 +7,8 @@ TEXTFILE=${PROM_FILE_PATH:-/var/lib/node_exporter/textfile_collector/raspberry-m
 TEMPFILE=$TEXTFILE.$$
 SLEEP_DURATION=${SLEEP_DURATION:-15}
 
+trap "rm $TEXTFILE" EXIT KILL TERM STOP 
+
 while true; do
 	mkdir -p $(dirname $TEXTFILE)
 
