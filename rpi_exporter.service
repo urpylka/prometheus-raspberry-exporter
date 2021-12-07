@@ -1,0 +1,10 @@
+[Unit]
+Description=Collect Raspberry Pi metrics for Prometheus
+After=network-online.target
+
+[Service]
+Environment=PROM_FILE_PATH=/var/lib/node_exporter/textfile_collector/raspberry-metrics.prom SLEEP_DURATION=15
+ExecStart=/usr/local/bin/rpi_exporter
+
+[Install]
+WantedBy=multi-user.target

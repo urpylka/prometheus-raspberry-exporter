@@ -2,8 +2,8 @@
 
 set -eu
 
-VCGEN=${VCGEN_PATH:-"/opt/vc/bin/vcgencmd"}
-TEXTFILE=${PROM_FILE_PATH:-"/var/lib/node_exporter/textfile_collector/raspberry-metrics.prom"}
+VCGEN=${VCGEN_PATH:-"/usr/bin/vcgencmd"}
+TEXTFILE=${PROM_FILE_PATH:-"/var/lib/node_exporter/textfile_collector/rpi_metrics.prom"}
 TEMPFILE=${TEXTFILE}.$$
 SLEEP_DURATION=${SLEEP_DURATION:-15}
 
