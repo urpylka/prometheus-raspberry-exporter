@@ -2,49 +2,49 @@
 
 set -eu
 
-VCGEN=${VCGEN_PATH:-/opt/vc/bin/vcgencmd}
-TEXTFILE=${PROM_FILE_PATH:-/var/lib/node_exporter/textfile_collector/raspberry-metrics.prom}
-TEMPFILE=$TEXTFILE.$$
+VCGEN=${VCGEN_PATH:-"/opt/vc/bin/vcgencmd"}
+TEXTFILE=${PROM_FILE_PATH:-"/var/lib/node_exporter/textfile_collector/raspberry-metrics.prom"}
+TEMPFILE=${TEXTFILE}.$$
 SLEEP_DURATION=${SLEEP_DURATION:-15}
 
-trap "rm $TEXTFILE" EXIT KILL TERM STOP 
+trap "rm ${TEXTFILE}" EXIT KILL TERM STOP
+
+mkdir -p $(dirname ${TEXTFILE})
 
 while true; do
-	mkdir -p $(dirname $TEXTFILE)
+    cat /dev/null > ${TEMPFILE}
 
-	cat /dev/null > $TEMPFILE
+    for sensor in `ls /sys/class/thermal/`;
+    do
+        if ! [ -f "/sys/class/thermal/${sensor}/temp" ]; then
+            continue
+        fi
 
-	for sensor in `ls /sys/class/thermal/`;
-	do
-		if ! [ -f "/sys/class/thermal/$sensor/temp" ]; then
-			continue
-		fi
+        TEMP=$(awk '{printf "%.3f", $1/1000}' /sys/class/thermal/${sensor}/temp)
+        CHIP=$(cat /sys/class/thermal/${sensor}/type)
 
-		TEMP=$(awk '{printf "%.3f", $1/1000}' /sys/class/thermal/$sensor/temp)
-		CHIP=$(cat /sys/class/thermal/$sensor/type)
+        if [ -z "${TEMP}" ]; then
+            echo "ERROR: Temperature variable empty for ${sensor}" >&2
+        else
+            echo "rpi_temperature{chip=\"${CHIP}\",sensor=\"${sensor}\"} ${TEMP}" >> ${TEMPFILE}
+        fi
+    done
 
-		if [ -z "$TEMP" ];
-		then
-			echo "ERROR: Temperature variable empty for $sensor" >&2
-		else
-			echo "rpi_temperature{chip=\"$CHIP\",sensor=\"$sensor\"} ${TEMP}" >> $TEMPFILE
-		fi
-	done
+    if [ -f "${VCGEN}" ]; then
+        for id in arm core h264 isp v3d uart pwm emmc pixel vec hdmi dpi; do
+            echo "rpi_freq{device=\"${id}\"} $(${VCGEN} measure_clock ${id} | cut -d '=' -f 2)" >> ${TEMPFILE}
+        done
 
-	if [ -f "$VCGEN" ]; then
-		for id in arm core h264 isp v3d uart pwm emmc pixel vec hdmi dpi; do
-			echo "rpi_freq{device=\"$id\"} $($VCGEN measure_clock $id | cut -d '=' -f 2)" >> $TEMPFILE
-		done
+        for id in core sdram_c sdram_i sdram_p; do
+            echo "rpi_volt{device=\"${id}\"} $(${VCGEN} measure_volts ${id} | cut -d '=' -f 2 | sed 's/V$//')" >> ${TEMPFILE}
+        done
 
-		for id in core sdram_c sdram_i sdram_p; do
-			echo "rpi_volt{device=\"$id\"} $($VCGEN measure_volts $id | cut -d '=' -f 2 | sed 's/V$//')" >> $TEMPFILE
-		done
+        for id in arm gpu; do
+            echo "rpi_mem{device=\"${id}\"} $(${VCGEN} get_mem ${id} | cut -d '=' -f 2 | sed 's/M$//')" >> ${TEMPFILE}
+        done
+    fi
 
-		for id in arm gpu; do
-			echo "rpi_mem{device=\"$id\"} $($VCGEN get_mem $id | cut -d '=' -f 2 | sed 's/M$//')" >> $TEMPFILE
-		done
-	fi
-	#chown prometheus:prometheus $TEMPFILE
-	mv $TEMPFILE $TEXTFILE
-	sleep $SLEEP_DURATION
+    # chown prometheus:prometheus ${TEMPFILE}
+    mv ${TEMPFILE} ${TEXTFILE}
+    sleep ${SLEEP_DURATION}
 done
