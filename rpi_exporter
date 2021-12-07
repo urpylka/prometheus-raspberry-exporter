@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 set -eu
 
@@ -8,6 +8,35 @@ TEMPFILE=${TEXTFILE}.$$
 SLEEP_DURATION=${SLEEP_DURATION:-15}
 
 trap "rm ${TEXTFILE}" EXIT KILL TERM STOP
+
+hex2bin() {
+    local dec=$(printf "%d" $1)
+    # echo $dec
+    local bit=
+    local bin=
+
+    if [ $dec -eq 0 ]; then
+        echo "0"
+    else
+        while [ $dec -ne 0 ]; do
+            bit=$(expr $dec % 2)
+            bin=$bit$bin
+            dec=$(expr $dec / 2)
+        done
+        echo $bin
+    fi
+}
+
+getbit() {
+    local bin=$1
+    if [ $bin = 0 ]; then
+        echo "0"
+    elif [ $bin = 1 ]; then
+        echo "1"
+    else
+        echo $((${#bin} - 1))
+    fi
+}
 
 mkdir -p $(dirname ${TEXTFILE})
 
@@ -42,6 +71,9 @@ while true; do
         for id in arm gpu; do
             echo "rpi_mem{device=\"${id}\"} $(${VCGEN} get_mem ${id} | cut -d '=' -f 2 | sed 's/M$//')" >> ${TEMPFILE}
         done
+
+        # https://www.raspberrypi.com/documentation/computers/os.html#get_throttled
+        echo "rpi_throttled $(getbit $(hex2bin $(${VCGEN} get_throttled | cut -d '=' -f 2)))" >> ${TEMPFILE}
     fi
 
     # chown prometheus:prometheus ${TEMPFILE}

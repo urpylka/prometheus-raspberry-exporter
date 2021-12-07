@@ -50,4 +50,5 @@ rpi_volt{device="sdram_i"} 1.2500
 rpi_volt{device="sdram_p"} 1.2250
 rpi_mem{device="arm"} 896
 rpi_mem{device="gpu"} 128
+rpi_throttled 19
 ```
