@@ -2,7 +2,9 @@
 
 Export Raspberry Pi metrics in Prometheus node_exporter's textfile format.
 
-It can also be used with other ARM SOCs to simply export the CPU temperature.
+To visualizate it you can use preconfigured [Grafana dashboard](./grafana_dashboard.json).
+
+![image](./grafana_dashboard.jpeg)
 
 ## Install
 
