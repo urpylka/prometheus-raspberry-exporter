@@ -1,0 +1,51 @@
+groups:
+  - name: rpi_monitoring
+    rules:
+      - alert: UnderVoltageDetected
+        expr: rpi_throttled == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "RPi problem at '{{ $labels.instance }}' is detected."
+          description: "Error is detected for more than 1 minute."
+      - alert: ArmFrequencyCapped
+        expr: rpi_throttled == 1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "RPi problem at '{{ $labels.instance }}' is detected."
+          description: "Error is detected for more than 1 minute."
+      - alert: CurrentlyThrottled
+        expr: rpi_throttled == 2
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "RPi problem at '{{ $labels.instance }}' is detected."
+          description: "Error is detected for more than 1 minute."
+      - alert: UnderVoltageHasOccurred
+        expr: rpi_throttled == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "RPi problem at '{{ $labels.instance }}' has occurred."
+          description: "Error is occurred for more than 1 minute."
+      - alert: ArmFrequencyCappingHasOccurred
+        expr: rpi_throttled == 1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "RPi problem at '{{ $labels.instance }}' has occurred."
+          description: "Error is occurred for more than 1 minute."
+      - alert: ThrottlingHasOccurred
+        expr: rpi_throttled == 2
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "RPi problem at '{{ $labels.instance }}' has occurred."
+          description: "Error is occurred for more than 1 minute."

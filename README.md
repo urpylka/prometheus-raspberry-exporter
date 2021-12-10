@@ -6,6 +6,8 @@ To visualizate it you can use preconfigured [Grafana dashboard](./grafana_dashbo
 
 ![image](./grafana_dashboard.jpeg)
 
+Also you can find simple [Alert rules for Prometheus](./alert_rules.yml) in this repo.
+
 ## Install
 
 ```bash
