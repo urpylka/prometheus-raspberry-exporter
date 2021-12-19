@@ -18,6 +18,12 @@ sudo systemctl enable rpi_exporter
 sudo systemctl start rpi_exporter
 ```
 
+To run `node-exporter` use:
+
+```bash
+docker run -d -p 9100:9100 --pid="host" --name=node_exporter -v "/:/host:ro,rslave" --restart=unless-stopped prom/node-exporter --path.rootfs=/host --collector.textfile.directory=/host/var/lib/node_exporter/textfile_collector
+```
+
 To uninstall use:
 
 ```bash
