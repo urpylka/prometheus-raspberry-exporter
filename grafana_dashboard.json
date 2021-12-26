@@ -67,7 +67,7 @@
                     "exemplar": true,
                     "expr": "rpi_throttled{instance=~\"$node\"}",
                     "interval": "",
-                    "legendFormat": "state",
+                    "legendFormat": "state {{instance}}",
                     "refId": "A"
                 }
             ],
@@ -187,7 +187,7 @@
                     "exemplar": true,
                     "expr": "rpi_temperature{instance=~\"$node\"}",
                     "interval": "",
-                    "legendFormat": "{{chip}}",
+                    "legendFormat": "{{chip}} {{instance}}",
                     "refId": "A"
                 }
             ],
@@ -283,7 +283,7 @@
                     "exemplar": true,
                     "expr": "rpi_volt{instance=~\"$node\"}",
                     "interval": "",
-                    "legendFormat": "{{device}}",
+                    "legendFormat": "{{device}} {{instance}}",
                     "refId": "A"
                 }
             ],
@@ -379,7 +379,7 @@
                     "exemplar": true,
                     "expr": "rpi_freq{instance=~\"$node\"}",
                     "interval": "",
-                    "legendFormat": "{{device}}",
+                    "legendFormat": "{{device}} {{instance}}",
                     "refId": "A"
                 }
             ],
@@ -476,7 +476,7 @@
                     "exemplar": true,
                     "expr": "rpi_mem{instance=~\"$node\"}",
                     "interval": "",
-                    "legendFormat": "{{device}}",
+                    "legendFormat": "{{device}} {{instance}}",
                     "refId": "A"
                 }
             ],
@@ -533,12 +533,17 @@
         "list": [
             {
                 "allValue": null,
+                "current": {
+                    "selected": true,
+                    "text": "All",
+                    "value": "$__all"
+                },
                 "datasource": null,
                 "definition": "label_values(rpi_throttled,instance)",
                 "description": null,
                 "error": null,
                 "hide": 0,
-                "includeAll": false,
+                "includeAll": true,
                 "label": "Node",
                 "multi": false,
                 "name": "node",
