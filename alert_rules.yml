@@ -26,7 +26,7 @@ groups:
           summary: "RPi problem at '{{ $labels.instance }}' is detected."
           description: "Error is detected for more than 1 minute."
       - alert: UnderVoltageHasOccurred
-        expr: rpi_throttled == 0
+        expr: rpi_throttled == 16
         for: 1m
         labels:
           severity: critical
@@ -34,7 +34,7 @@ groups:
           summary: "RPi problem at '{{ $labels.instance }}' has occurred."
           description: "Error is occurred for more than 1 minute."
       - alert: ArmFrequencyCappingHasOccurred
-        expr: rpi_throttled == 1
+        expr: rpi_throttled == 17
         for: 1m
         labels:
           severity: warning
@@ -42,7 +42,7 @@ groups:
           summary: "RPi problem at '{{ $labels.instance }}' has occurred."
           description: "Error is occurred for more than 1 minute."
       - alert: ThrottlingHasOccurred
-        expr: rpi_throttled == 2
+        expr: rpi_throttled == 18
         for: 1m
         labels:
           severity: warning
