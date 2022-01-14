@@ -27,17 +27,6 @@ hex2bin() {
     fi
 }
 
-getbit() {
-    local bin=$1
-    if [ $bin = 0 ]; then
-        echo "0"
-    elif [ $bin = 1 ]; then
-        echo "1"
-    else
-        echo $((${#bin} - 1))
-    fi
-}
-
 mkdir -p $(dirname ${TEXTFILE})
 
 while true; do
@@ -73,7 +62,15 @@ while true; do
         done
 
         # https://www.raspberrypi.com/documentation/computers/os.html#get_throttled
-        echo "rpi_throttled $(getbit $(hex2bin $(${VCGEN} get_throttled | cut -d '=' -f 2)))" >> ${TEMPFILE}
+        BIN=$(hex2bin $(${VCGEN} get_throttled | cut -d '=' -f 2))
+
+        # Normalize up to 20 digits
+        SUF=; for i in $(seq $((20-${#BIN}))); do SUF="${SUF}0"; done
+        BIN="${SUF}${BIN}"
+
+        for i in $(seq $((${#BIN}-1)) -1 0); do
+            echo "rpi_throttled{bit=\"$((${#BIN}-${i}-1))\"} ${BIN:i:1}" >> ${TEMPFILE}
+        done
     fi
 
     # chown prometheus:prometheus ${TEMPFILE}

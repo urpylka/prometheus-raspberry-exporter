@@ -15,128 +15,489 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 8,
-    "links": [],
+    "iteration": 1642152587280,
+    "links": [
+        {
+            "asDropdown": false,
+            "icon": "external link",
+            "includeVars": false,
+            "keepTime": false,
+            "tags": [],
+            "targetBlank": false,
+            "title": "Raspberry Pi docs",
+            "tooltip": "",
+            "type": "link",
+            "url": "https://www.raspberrypi.com/documentation/computers/os.html#vcgencmd"
+        }
+    ],
     "panels": [
         {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
             "datasource": null,
+            "description": "",
             "fieldConfig": {
-                "defaults": {},
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 1
+                            }
+                        ]
+                    }
+                },
                 "overrides": []
             },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 8,
-                "w": 12,
-                "x": 0,
-                "y": 0
-            },
-            "hiddenSeries": false,
-            "id": 12,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
+            "id": 16,
+            "links": [],
             "options": {
-                "alertThreshold": true
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "name"
             },
-            "percentage": false,
-            "pluginVersion": "7.5.2",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
+            "pluginVersion": "7.5.12",
             "targets": [
                 {
                     "exemplar": true,
-                    "expr": "rpi_throttled{instance=~\"$node\"}",
+                    "expr": "rpi_throttled{instance=~\"$node\",bit=\"0\"}",
                     "interval": "",
-                    "legendFormat": "state {{instance}}",
+                    "legendFormat": "{{instance}}",
                     "refId": "A"
                 }
             ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Throttling state",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:372",
-                    "decimals": 0,
-                    "format": "short",
-                    "label": "",
-                    "logBase": 1,
-                    "max": "20",
-                    "min": "0",
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:373",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": false
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
+            "title": "Under-voltage detected",
+            "type": "stat"
         },
         {
             "datasource": null,
             "fieldConfig": {
-                "defaults": {},
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 1
+                            }
+                        ]
+                    }
+                },
                 "overrides": []
             },
             "gridPos": {
-                "h": 8,
-                "w": 5,
+                "h": 3,
+                "w": 6,
+                "x": 6,
+                "y": 0
+            },
+            "id": 23,
+            "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "name"
+            },
+            "pluginVersion": "7.5.12",
+            "targets": [
+                {
+                    "exemplar": true,
+                    "expr": "rpi_throttled{instance=~\"$node\",bit=\"1\"}",
+                    "interval": "",
+                    "legendFormat": "{{instance}}",
+                    "refId": "A"
+                }
+            ],
+            "title": "Arm frequency capped",
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 1
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 6,
                 "x": 12,
                 "y": 0
             },
-            "id": 14,
+            "id": 21,
             "options": {
-                "content": "|Bit|Meaning|\n|-|-|\n|0|Under-voltage detected|\n|1|Arm frequency capped|\n|2|Currently throttled|\n|3|Soft temperature limit active|\n|16|Under-voltage has occurred|\n|17|Arm frequency capping has occurred|\n|18|Throttling has occurred|\n|19|Soft temperature limit has occurred|\n\n\\\nOfficial doc of [vcgencmd](https://www.raspberrypi.com/documentation/computers/os.html#vcgencmd)",
-                "mode": "markdown"
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "name"
             },
-            "pluginVersion": "7.5.2",
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "Throttling description",
-            "type": "text"
+            "pluginVersion": "7.5.12",
+            "targets": [
+                {
+                    "exemplar": true,
+                    "expr": "rpi_throttled{instance=~\"$node\",bit=\"2\"}",
+                    "interval": "",
+                    "legendFormat": "{{instance}}",
+                    "refId": "A"
+                }
+            ],
+            "title": "Currently throttled",
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 1
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 6,
+                "x": 18,
+                "y": 0
+            },
+            "id": 28,
+            "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "name"
+            },
+            "pluginVersion": "7.5.12",
+            "targets": [
+                {
+                    "exemplar": true,
+                    "expr": "rpi_throttled{instance=~\"$node\",bit=\"4\"}",
+                    "interval": "",
+                    "legendFormat": "{{instance}}",
+                    "refId": "A"
+                }
+            ],
+            "title": "Soft temperature limit active",
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 1
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 6,
+                "x": 0,
+                "y": 3
+            },
+            "id": 19,
+            "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "name"
+            },
+            "pluginVersion": "7.5.12",
+            "targets": [
+                {
+                    "exemplar": true,
+                    "expr": "rpi_throttled{instance=~\"$node\",bit=\"16\"}",
+                    "interval": "",
+                    "legendFormat": "{{instance}}",
+                    "refId": "A"
+                }
+            ],
+            "title": "Under-voltage has occurred",
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 1
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 6,
+                "x": 6,
+                "y": 3
+            },
+            "id": 22,
+            "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "name"
+            },
+            "pluginVersion": "7.5.12",
+            "targets": [
+                {
+                    "exemplar": true,
+                    "expr": "rpi_throttled{instance=~\"$node\",bit=\"17\"}",
+                    "interval": "",
+                    "legendFormat": "{{instance}}",
+                    "refId": "A"
+                }
+            ],
+            "title": "Arm frequency capping has occurred",
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 1
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 6,
+                "x": 12,
+                "y": 3
+            },
+            "id": 20,
+            "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "name"
+            },
+            "pluginVersion": "7.5.12",
+            "targets": [
+                {
+                    "exemplar": true,
+                    "expr": "rpi_throttled{instance=~\"$node\",bit=\"18\"}",
+                    "interval": "",
+                    "legendFormat": "{{instance}}",
+                    "refId": "A"
+                }
+            ],
+            "title": "Throttling has occurred",
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 1
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 6,
+                "x": 18,
+                "y": 3
+            },
+            "id": 17,
+            "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "name"
+            },
+            "pluginVersion": "7.5.12",
+            "targets": [
+                {
+                    "exemplar": true,
+                    "expr": "rpi_throttled{instance=~\"$node\",bit=\"19\"}",
+                    "interval": "",
+                    "legendFormat": "{{instance}}",
+                    "refId": "A"
+                }
+            ],
+            "title": "Soft temperature limit has occurred",
+            "type": "stat"
         },
         {
             "aliasColors": {},
@@ -154,7 +515,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 0,
-                "y": 8
+                "y": 6
             },
             "hiddenSeries": false,
             "id": 2,
@@ -174,7 +535,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.2",
+            "pluginVersion": "7.5.12",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -187,7 +548,7 @@
                     "exemplar": true,
                     "expr": "rpi_temperature{instance=~\"$node\"}",
                     "interval": "",
-                    "legendFormat": "{{chip}} {{instance}}",
+                    "legendFormat": "{{chip}} ({{instance}})",
                     "refId": "A"
                 }
             ],
@@ -250,7 +611,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 12,
-                "y": 8
+                "y": 6
             },
             "hiddenSeries": false,
             "id": 8,
@@ -270,7 +631,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.2",
+            "pluginVersion": "7.5.12",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -283,7 +644,7 @@
                     "exemplar": true,
                     "expr": "rpi_volt{instance=~\"$node\"}",
                     "interval": "",
-                    "legendFormat": "{{device}} {{instance}}",
+                    "legendFormat": "{{device}} ({{instance}})",
                     "refId": "A"
                 }
             ],
@@ -346,7 +707,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 0,
-                "y": 16
+                "y": 14
             },
             "hiddenSeries": false,
             "id": 6,
@@ -366,7 +727,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.2",
+            "pluginVersion": "7.5.12",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -379,7 +740,7 @@
                     "exemplar": true,
                     "expr": "rpi_freq{instance=~\"$node\"}",
                     "interval": "",
-                    "legendFormat": "{{device}} {{instance}}",
+                    "legendFormat": "{{device}} ({{instance}})",
                     "refId": "A"
                 }
             ],
@@ -443,7 +804,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 12,
-                "y": 16
+                "y": 14
             },
             "hiddenSeries": false,
             "id": 10,
@@ -463,7 +824,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.2",
+            "pluginVersion": "7.5.12",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -476,7 +837,7 @@
                     "exemplar": true,
                     "expr": "rpi_mem{instance=~\"$node\"}",
                     "interval": "",
-                    "legendFormat": "{{device}} {{instance}}",
+                    "legendFormat": "{{device}} ({{instance}})",
                     "refId": "A"
                 }
             ],
@@ -524,6 +885,7 @@
             }
         }
     ],
+    "refresh": "1m",
     "schemaVersion": 27,
     "style": "dark",
     "tags": [
@@ -547,11 +909,12 @@
                 "label": "Node",
                 "multi": false,
                 "name": "node",
+                "options": [],
                 "query": {
                     "query": "label_values(rpi_throttled,instance)",
                     "refId": "StandardVariableQuery"
                 },
-                "refresh": 0,
+                "refresh": 1,
                 "regex": "",
                 "skipUrlSync": false,
                 "sort": 0,
@@ -571,5 +934,5 @@
     "timezone": "",
     "title": "Raspberry Pi Exporter",
     "uid": "rlQwXc27k",
-    "version": 7
+    "version": 1
 }

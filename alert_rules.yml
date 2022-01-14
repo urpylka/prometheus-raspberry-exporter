@@ -2,7 +2,7 @@ groups:
   - name: rpi_monitoring
     rules:
       - alert: UnderVoltageDetected
-        expr: rpi_throttled == 0
+        expr: rpi_throttled{bit="0"} == 1
         for: 1m
         labels:
           severity: critical
@@ -10,42 +10,34 @@ groups:
           summary: "RPi problem at '{{ $labels.instance }}' is detected."
           description: "Error is detected for more than 1 minute."
       - alert: ArmFrequencyCapped
-        expr: rpi_throttled == 1
-        for: 1m
-        labels:
-          severity: warning
-        annotations:
-          summary: "RPi problem at '{{ $labels.instance }}' is detected."
-          description: "Error is detected for more than 1 minute."
-      - alert: CurrentlyThrottled
-        expr: rpi_throttled == 2
-        for: 1m
-        labels:
-          severity: warning
-        annotations:
-          summary: "RPi problem at '{{ $labels.instance }}' is detected."
-          description: "Error is detected for more than 1 minute."
-      - alert: UnderVoltageHasOccurred
-        expr: rpi_throttled == 16
+        expr: rpi_throttled{bit="1"} == 1
         for: 1m
         labels:
           severity: critical
         annotations:
-          summary: "RPi problem at '{{ $labels.instance }}' has occurred."
-          description: "Error is occurred for more than 1 minute."
-      - alert: ArmFrequencyCappingHasOccurred
-        expr: rpi_throttled == 17
+          summary: "RPi problem at '{{ $labels.instance }}' is detected."
+          description: "Error is detected for more than 1 minute."
+      - alert: CurrentlyThrottled
+        expr: rpi_throttled{bit="2"} == 1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "RPi problem at '{{ $labels.instance }}' is detected."
+          description: "Error is detected for more than 1 minute."
+      - alert: SoftTemperatureLimitActive
+        expr: rpi_throttled{bit="3"} == 1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "RPi problem at '{{ $labels.instance }}' is detected."
+          description: "Error is detected for more than 1 minute."
+      - alert: UnknownBit
+        expr: rpi_throttled{bit=~"(4|5|6|7|8|9|10|11|12|13|14|15)+"} == 1
         for: 1m
         labels:
           severity: warning
         annotations:
           summary: "RPi problem at '{{ $labels.instance }}' has occurred."
-          description: "Error is occurred for more than 1 minute."
-      - alert: ThrottlingHasOccurred
-        expr: rpi_throttled == 18
-        for: 1m
-        labels:
-          severity: warning
-        annotations:
-          summary: "RPi problem at '{{ $labels.instance }}' has occurred."
-          description: "Error is occurred for more than 1 minute."
+          description: "Error is occurred for more than 1 minute. Bit is {{ $labels.bit }}."
