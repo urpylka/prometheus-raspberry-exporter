@@ -1,6 +1,6 @@
 # Prometheus Raspberry Pi Exporter
 
-Export Raspberry Pi metrics in Prometheus node_exporter's textfile format.
+Export Raspberry Pi metrics in Prometheus node-exporter's textfile format.
 
 To visualizate it you can use preconfigured [Grafana dashboard](./grafana_dashboard.json).
 
@@ -8,14 +8,14 @@ To visualizate it you can use preconfigured [Grafana dashboard](./grafana_dashbo
 
 ![image](./grafana_dashboard-2.jpg)
 
-Also you can find simple [Alert rules for Prometheus](./alert_rules.yml) in this repo.
+Also you can use prepared [Alert rules for Prometheus](./alert_rules.yml).
 
 ## Install
 
 ```bash
-curl -o /usr/local/bin/rpi_exporter https://raw.githubusercontent.com/urpylka/prometheus-raspberry-exporter/master/rpi_exporter
-curl -o /etc/systemd/system/rpi_exporter.service https://raw.githubusercontent.com/urpylka/prometheus-raspberry-exporter/master/rpi_exporter.service
-chmod +x /usr/local/bin/rpi_exporter
+sudo curl -o /usr/local/bin/rpi_exporter https://raw.githubusercontent.com/urpylka/prometheus-raspberry-exporter/master/rpi_exporter
+sudo curl -o /etc/systemd/system/rpi_exporter.service https://raw.githubusercontent.com/urpylka/prometheus-raspberry-exporter/master/rpi_exporter.service
+sudo chmod +x /usr/local/bin/rpi_exporter
 sudo systemctl enable rpi_exporter
 sudo systemctl start rpi_exporter
 ```
@@ -35,9 +35,9 @@ sudo rm /etc/systemd/system/rpi_exporter.service
 sudo rm /usr/local/bin/rpi_exporter
 ```
 
-## Configure your node exporter
+## Configure your node-exporter
 
-1. Make sure your node exporter uses `textfile` in `--collectors.enabled`
+1. Make sure your node-exporter uses `textfile` in `--collectors.enabled`
 2. Add the following parameter `--collector.textfile.directory=/var/lib/node_exporter`
 
 ## Example queries
